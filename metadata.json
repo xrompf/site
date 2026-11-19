@@ -1,0 +1,6 @@
+{
+  "name": "Mornye",
+  "description": "Match a song from a link or a name across music catalogs and fill in cover art, synced lyrics and full tags. Built with Flutter and Rust.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

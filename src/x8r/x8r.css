@@ -1,0 +1,175 @@
+@import "tailwindcss";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+
+@theme {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+  --color-fg: var(--fg);
+  --color-soft: var(--soft);
+  --color-dim: var(--dim);
+  --color-faint: var(--faint);
+  --color-panel: var(--panel-bottom);
+  --color-inset: var(--inset);
+  --color-line: var(--line);
+  --color-bar: var(--bar);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Scope x8r palette tokens onto Expressive Profile's dynamic Material 3 theme variables */
+.x8r-section {
+  --fg: var(--on-surface);
+  --soft: color-mix(in srgb, var(--on-surface) 80%, transparent);
+  --dim: var(--on-surface-variant);
+  --faint: color-mix(in srgb, var(--on-surface-variant) 62%, transparent);
+  --inset: color-mix(in srgb, var(--surface-container) 46%, transparent);
+  --line: color-mix(in srgb, var(--outline-variant) 48%, transparent);
+  --panel-top: color-mix(in srgb, var(--surface-container-low) 48%, transparent);
+  --panel-bottom: color-mix(in srgb, var(--surface-container) 36%, transparent);
+  --edge: color-mix(in srgb, var(--primary) 22%, transparent);
+  --sheen: color-mix(in srgb, var(--primary) 8%, transparent);
+  --label: var(--primary);
+  --bar: var(--primary);
+  --theme-a: var(--primary);
+  --theme-b: var(--tertiary);
+}
+
+.x8r-section .panel {
+  border-radius: 24px;
+  background: linear-gradient(180deg, var(--panel-top), var(--panel-bottom));
+  backdrop-filter: blur(26px) saturate(155%);
+  -webkit-backdrop-filter: blur(26px) saturate(155%);
+  border: 1px solid color-mix(in srgb, var(--outline-variant) 46%, transparent);
+  box-shadow: inset 0 1px 0 var(--edge), 0 12px 32px -20px color-mix(in srgb, var(--primary) 24%, transparent);
+  transition: background-color 0.35s ease, border-color 0.35s ease, transform 0.25s ease;
+}
+
+.x8r-section .label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--label);
+}
+
+.x8r-section .sq {
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--inset);
+  color: var(--soft);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.25s ease, color 0.25s ease;
+}
+
+.x8r-section .sq:hover {
+  transform: translateY(-2px) scale(1.06);
+  background: var(--secondary-container);
+  color: var(--on-secondary-container);
+}
+
+.x8r-section .pixelated {
+  image-rendering: pixelated;
+}
+
+.x8r-section .fade-x {
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+@keyframes x8r-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.x8r-section .marquee {
+  display: flex;
+  width: max-content;
+  animation: x8r-scroll var(--speed, 40s) linear infinite;
+}
+
+.x8r-section .marquee-reverse {
+  animation-direction: reverse;
+}
+
+.x8r-section .marquee-pause:hover .marquee {
+  animation-play-state: paused;
+}
+
+@keyframes x8r-eq {
+  0%,
+  100% {
+    transform: scaleY(0.28);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.x8r-section .eq span {
+  transform-origin: bottom;
+  animation: x8r-eq 0.9s ease-in-out infinite;
+}
+
+@keyframes x8r-breathe {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.1);
+  }
+}
+
+.x8r-section .breathe {
+  animation: x8r-breathe 2.2s ease-in-out infinite;
+}
+
+.x8r-section .lyric {
+  transition-property: opacity, filter, scale, background-position;
+  transition-duration: 0.6s, 0.6s, 0.6s, 0.6s;
+  transition-timing-function: ease, ease, cubic-bezier(0.34, 1.56, 0.64, 1), linear;
+  background-image: linear-gradient(to right, var(--fg) 50%, color-mix(in oklab, var(--fg) 26%, transparent) 50%);
+  background-size: 202% 100%;
+  background-position: 100% 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.x8r-section .lyric[data-state="current"] {
+  background-position: 0% 0;
+}
+
+.x8r-section .lyric[data-state="past"] {
+  background-position: 0% 0;
+}
+
+.x8r-section .lyric[data-state="next"] {
+  background-position: 100% 0;
+}
+
+.x8r-section .status {
+  border-radius: 50%;
+  border: 4px solid var(--surface);
+  background: var(--status);
+}
+
+@keyframes x8r-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--status) 45%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+}
+
+.x8r-section .status[data-status="online"] {
+  animation: x8r-pulse 2.4s ease-out infinite;
+}
