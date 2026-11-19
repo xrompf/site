@@ -55,8 +55,8 @@ export default function App() {
   const [activeHash, setActiveHash] = useState<string>(() => window.location.hash.replace(/^#/, ""));
   const [seed, setSeed] = useState<string>(() => read<string>("ep:seed", "#FF5CA8"));
   const [scheme, setScheme] = useState<SchemeName>(() => {
-    const saved = read<string>("ep:scheme", "expressive");
-    return Object.prototype.hasOwnProperty.call(t.schemes, saved) ? (saved as SchemeName) : "expressive";
+    const saved = read<string>("ep:scheme:v2", "tonalSpot");
+    return Object.prototype.hasOwnProperty.call(t.schemes, saved) ? (saved as SchemeName) : "tonalSpot";
   });
   const [theme, setTheme] = useState<Theme>(() => read<Theme>("ep:theme", "system"));
   const dark = useDark(theme);
@@ -66,7 +66,7 @@ export default function App() {
   const [toast, setToast] = useState<string | null>(null);
 
   useEffect(() => write("ep:seed", seed), [seed]);
-  useEffect(() => write("ep:scheme", scheme), [scheme]);
+  useEffect(() => write("ep:scheme:v2", scheme), [scheme]);
   useEffect(() => write("ep:theme", theme), [theme]);
 
   useEffect(() => {
@@ -286,7 +286,7 @@ export default function App() {
                 icon="restart_alt"
                 onClick={() => {
                   setSeed("#FF5CA8");
-                  setScheme("expressive");
+                  setScheme("tonalSpot");
                   setTheme("system");
                 }}
               >
